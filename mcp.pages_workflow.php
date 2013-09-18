@@ -28,8 +28,9 @@ class Pages_workflow_mcp {
 	
 	public $return_data;	
 	private $_base_url;	
-	var $page_array		    = array();
-	var $pages			    = array();
+	var $page_array	= array();
+	var $pages = array();
+	var $closed_pages = array();
 	var $homepage_display;	
 	
 
@@ -139,10 +140,11 @@ class Pages_workflow_mcp {
 		$this->EE->javascript->compile();
 		
 		$completion_statuses = $this->getCompletionStatuses();
-		//die("<pre>".print_r($completion_statuses,true)."</pre>");	
+		$closed_pages = $this->getClosedPages();
 										
 		$pages = $this->EE->config->item('site_pages');
-		
+		//die("<pre>".print_r($pages,true)."</pre>");	
+				
 		natcasesort($pages[$this->EE->config->item('site_id')]['uris']);
 		$vars['pages'] = array();
 		
@@ -156,6 +158,10 @@ class Pages_workflow_mcp {
 
 		foreach($pages[$this->EE->config->item('site_id')]['uris'] as $entry_id => $url)
 		{
+			
+			//if page status is 'closed' move on to the next one
+			if (in_array($entry_id, $closed_pages)) continue;
+			
 			//echo "TEST".$entry_id."<br";
 			$url = ($url == '/') ? '/' : '/'.trim($url, '/');
 
@@ -207,9 +213,26 @@ class Pages_workflow_mcp {
 		return $this->EE->load->view('index.php', $vars, TRUE);
 	}
 
+	//returns useful array of closed pages ids
+	public function getClosedPages() {
+		
+		$return_array = array();
+		
+		$this->EE->db->select('entry_id');
+		$this->EE->db->from('exp_channel_titles');
+		$this->EE->db->where('status','closed');		
+		$query = $this->EE->db->get();
+		$results = $query->result_array();
+		foreach($results as $result) {
+			$entry_id = $result['entry_id'];
+			array_push($return_array, $entry_id);
+		}
+		return $return_array;		
+	}
+
 	public function getCompletionStatuses() {
 		
-		$return_array = array();	
+		$return_array = array();
 		$channel_map = $this->getChannelMap();
 		$page_channel_id = $channel_map['page'];
 		$field_map = $this->getChannelFieldMap();

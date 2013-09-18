@@ -3,7 +3,7 @@ if(isset($pages) && count($pages) > 0):?>
 
 <?php
 	$this->table->set_heading(
-		count($pages)." ".lang('pages'),
+		count($pages)." ".lang('open_pages'),
 		lang('title'),
 		lang('completion_status')
 	);

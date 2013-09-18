@@ -24,7 +24,7 @@ $lang = array(
 	
 	'title' => 'Title',
 	
-	'pages' => 'Pages',
+	'open_pages' => 'open Pages',
 	
 );
 
