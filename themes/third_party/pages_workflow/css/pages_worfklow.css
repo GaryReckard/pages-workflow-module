@@ -1,0 +1,20 @@
+#mainContent table.mainTable tr td:first-child {
+	width: 60%;
+}
+#mainContent table.mainTable tr td:nth-child(2) {
+	width: 25% !important;
+}
+#mainContent table.mainTable span {
+	display: block;
+	font-weight: bold;
+	text-align: center;
+}
+#mainContent table.mainTable .workinprogress {
+	background-color: #FFA8A8;
+}
+#mainContent table.mainTable .completed {
+	background-color: #C9CBE8;
+}
+#mainContent table.mainTable .approved {
+	background-color: #A8E2A2;
+}
