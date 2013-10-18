@@ -238,7 +238,7 @@ class Pages_workflow_mcp {
 		$field_map = $this->getChannelFieldMap();
 
         //make sure field exists 
-		if (!array_key_exists('page_completion_status', $field_map)) {
+        if (!array_key_exists('page_completion_status', $field_map)) {
             die("Does not compute! You need to create a page channel field called page_completion_status");
         }
 
