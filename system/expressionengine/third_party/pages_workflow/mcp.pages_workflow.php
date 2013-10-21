@@ -58,8 +58,8 @@ class Pages_workflow_mcp {
 			$this->homepage_display = $homepage_display;
 		}
 
-        $new_page_location = '';
-        
+		$new_page_location = '';
+		
 		if ($default_channel != 0)
 		{
 			$new_page_location = AMP.'M=entry_form'.AMP.'channel_id='.$default_channel;
@@ -172,22 +172,22 @@ class Pages_workflow_mcp {
 			$vars['pages'][$entry_id]['indent'] = '';
 
 			if ($this->homepage_display == 'nested' && $url != '/')
-            {
-            	$x = explode('/', trim($url, '/'));
+			{
+				$x = explode('/', trim($url, '/'));
 
-            	for($i=0, $s=count($x); $i < $s; ++$i)
-            	{
-            		if (isset($previous[$i]) && $previous[$i] == $x[$i])
-            		{
-            			continue;
-            		}
+				for($i=0, $s=count($x); $i < $s; ++$i)
+				{
+					if (isset($previous[$i]) && $previous[$i] == $x[$i])
+					{
+						continue;
+					}
 
 					$this_indent = ($i == 0) ? '' : str_repeat($spcr, $i-1).$indent;
 					$vars['pages'][$entry_id]['indent'] = $this_indent;
-            	}
+				}
 
-            	$previous = $x;
-            }
+				$previous = $x;
+			}
 
 			$vars['pages'][$entry_id]['toggle'] = array(
 														'name'		=> 'toggle[]',
@@ -237,10 +237,10 @@ class Pages_workflow_mcp {
 		$page_channel_id = $channel_map['page'];
 		$field_map = $this->getChannelFieldMap();
 
-        //make sure field exists 
-        if (!array_key_exists('page_completion_status', $field_map)) {
-            die("Does not compute! You need to create a page channel field called page_completion_status");
-        }
+		//make sure field exists 
+		if (!array_key_exists('page_completion_status', $field_map)) {
+			die("Does not compute! You need to create a page channel field called page_completion_status");
+		}
 
 		$completion_status_id = $field_map['page_completion_status'];
 		$completion_id_string = 'field_id_'.$completion_status_id;
